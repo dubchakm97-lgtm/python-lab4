@@ -32,6 +32,11 @@ class BookCollection:
         self.books.remove(book)
 
     def __getitem__(self, item: slice | int) -> Tale | Book | OnTheInternetBook | BookCollection:
+        """
+        Метод, возвращающий объект из библиотеки или список таких объектов
+        :param item: срез или индекс в списке книг
+        :return: объект из библиотеки или список таких объектов
+        """
         if isinstance(item, slice):
             new_lst = BookCollection()
             new_lst.books = self.books[item]
@@ -46,4 +51,8 @@ class BookCollection:
         return len(self.books)
 
     def __iter__(self) -> Iterator[Tale | Book | OnTheInternetBook]:
+        """
+        Метод, возвращающий итератор по списку книг
+        :return: итератор по объектам библиотеки
+        """
         return iter(self.books)

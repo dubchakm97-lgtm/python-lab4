@@ -64,6 +64,11 @@ class IndexDict:
             del self.isbn[item.isbn]
 
     def __getitem__(self, item: str | int) -> Tale | Book | OnTheInternetBook | list[Tale | Book | OnTheInternetBook]:
+        """
+        Метод, возвращающий объект из библиотеки или список таких объектов
+        :param item: ключ из словаря
+        :return: объект из библиотеки или список таких объектов
+        """
         if item in self.isbn:
             return self.isbn[item]
         elif item in self.author:
@@ -81,4 +86,8 @@ class IndexDict:
         return len(self.isbn)
 
     def __iter__(self) -> Iterator[str]:
+        """
+        Метод, возвращающий итератор по словарю isbn
+        :return: итератор по объектам библиотеки
+        """
         return iter(self.isbn)
