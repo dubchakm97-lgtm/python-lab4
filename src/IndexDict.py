@@ -6,12 +6,25 @@ from typing import Iterator
 
 
 class IndexDict:
+    """
+    Класс, хранящий книги по трём словарям по следующим критериям: международный номер, автор книги, год написания произведения
+    """
     def __init__(self) -> None:
+        """
+        Инициализация трёх словарей, в которых будут лежать книги, словарь с ISBN каждой книги, с автором каждой книги и
+        годом написания книги
+        """
         self.isbn = {}
         self.author = {}
         self.year = {}
 
     def add(self, book: Tale | Book | OnTheInternetBook, step: int) -> None:
+        """
+        Добавление книги в каждый словарь: по международному номеру, по автору и по году написания произведения
+        :param book: книга (объект одного из классов Tale, Book, OnTheInternetBook)
+        :param step: шаг, который характеризует последовательный номер выполнения действия (добавления книги)
+        :return: None
+        """
         if type(book) is not Tale:
             if book.isbn in self.isbn:
                 raise ValueError(f"[STEP {step}] ADD_BOOK isbn={book.isbn} -> ERROR duplicate_isbn")
@@ -30,6 +43,12 @@ class IndexDict:
             self.isbn[book.isbn] = book
 
     def remove(self, book: Tale | Book | OnTheInternetBook, step: int) -> None:
+        """
+        Удаление книги из словарей
+        :param book: книга (объект одного из классов Tale, Book, OnTheInternetBook)
+        :param step: шаг, который характеризует последовательный номер выполнения действия (удаления книги)
+        :return: None
+        """
         if book.isbn not in self.isbn:
             raise ValueError(f"[STEP {step}] REMOVE isbn={book.isbn} -> ERROR not_found")
         item = self.isbn[book.isbn]
@@ -55,6 +74,10 @@ class IndexDict:
             raise KeyError(item)
 
     def __len__(self) -> int:
+        """
+        Метод, возвращающий количество книг в словаре isbn
+        :return: Количество книг в словаре isbn (во всей библиотеке)
+        """
         return len(self.isbn)
 
     def __iter__(self) -> Iterator[str]:
